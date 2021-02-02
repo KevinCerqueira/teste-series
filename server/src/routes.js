@@ -12,6 +12,7 @@ routes.get('/series/', serieController.get);
 routes.post('/series/create', serieController.create);
 routes.delete('/series/delete', serieController.delete);
 routes.put('/series/update', serieController.update);
+routes.patch('/series/update-status', serieController.updateStatus);
 routes.get('/status/', statusController.get);
 
 module.exports = routes;

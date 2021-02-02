@@ -28,6 +28,7 @@ class SerieController {
       categoria,
       status,
     };
+    
     const res_serie = await trx("serie").insert(nova_serie);
     const idserie = res_serie[0];
 
@@ -64,6 +65,13 @@ class SerieController {
     };
 
     const res = knex("serie").where("idserie", idserie).update(serie);
+    return response.json(res);
+  }
+  async updateStatus(request, response) {
+    const { idserie, status } = request.body;
+    const res = await knex("serie").where("idserie", idserie).update({
+      status: status,
+    });
     return response.json(res);
   }
 }

@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 
+localStorage.clear();
 localStorage.setItem('@server/link', 'http://localhost:3333');
 
 ReactDOM.render(

@@ -1,8 +1,10 @@
 import React, { useState, FormEvent, ChangeEvent } from 'react';
 import axios from 'axios';
 import '../styles.css'
-const NovaSerie = () => {
+import SerieContainer from './SerieContainer';
+const EditarSerie = (params) => {
     const [formData, setFormData] = useState({
+        idserie: 0,
         nomeserie: '',
         anolancamento: 0,
         numtemporadas: 0,
@@ -10,6 +12,8 @@ const NovaSerie = () => {
         categoria: '',
         status: 0,
     });
+    // const { idserie, nomeserie, anolancamento, numtemporadas, sinopse, categoria, status } = params;
+    const { idserie } = params;
     function handleInputChange(event) {
         const { name, value } = event.target;
 
@@ -19,6 +23,7 @@ const NovaSerie = () => {
         event.preventDefault();
         const { nomeserie, anolancamento, numtemporadas, sinopse, categoria, status } = formData;
         const data = {
+            idserie,
             nomeserie,
             anolancamento,
             numtemporadas,
@@ -26,57 +31,54 @@ const NovaSerie = () => {
             categoria,
             status
         };
-        const res = await axios.post(localStorage.getItem('@server/link') + "/series/create", data);
-        localStorage.removeItem('@data/series');
+        const res = await axios.put(localStorage.getItem('@server/link') + "/series/update", data);
         console.log(res);
         return window.location.reload();
     }
     return (
-        <div id="nova-serie">
-            <div className="row">
-                <div className="col-md-2 p-0 m-0 float-right">
-                    <button id="btn-novaserie" type="button" className="btn" data-toggle="modal" data-target="#novaserieModal">
-                        <strong>Adicionar Serie <i className="fas fa-plus-circle"></i></strong>
-                    </button>
-                </div>
-            </div>
+        <>
+            <button key={params.idserie} type="submit" className="btn btn-block pt-4 pb-4 mt-1 card-border card-edit" data-toggle="modal" data-target="#editarSerie">
+                <i className="fa fa-pencil-square-o" aria-hidden="true"></i>
+            </button>
+
             <div id="novaserie">
-                <div className="modal fade" id="novaserieModal" tabIndex="-1" aria-labelledby="novaserieModalLabel" aria-hidden="true">
+                <div key={params.idserie} className="modal fade" id="editarSerie" tabIndex="-1" aria-labelledby="editarSerieLabel" aria-hidden="true">
                     <div className="modal-dialog modal-lg modal-dialog-centered">
                         <div className="modal-content">
                             <div className="modal-header">
                                 <legend>
-                                    <h2>Nova Série</h2>
+                                    <h2>Editar Série</h2>
                                 </legend>
                                 <button type="button" className="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
                             <form id="form-novaserie" onSubmit={handleSubmit}>
+                                <input type="hidden" name="idserie" value={params.idserie} />
                                 <div className="modal-body">
                                     <fieldset>
                                         <div className="field">
                                             <label htmlFor="form-nome">Nome</label>
-                                            <input maxLength="100" minLength="1" required type="text" id="form-nome" name="nomeserie" onChange={handleInputChange} />
+                                            <input value={params.nomeserie} maxLength="100" minLength="1" required type="text" id="form-nome" name="nomeserie" onChange={handleInputChange} />
                                         </div>
                                         <div className="field-group">
                                             <div className="field">
                                                 <label htmlFor="form-sinopse">Sinopse</label>
-                                                <textarea maxLength="500" minLength="4" required type="text" name="sinopse" id="form-sinopse" onChange={handleInputChange} />
+                                                <textarea value={params.sinopse} maxLength="500" minLength="4" required type="text" name="sinopse" id="form-sinopse" onChange={handleInputChange} />
                                             </div>
                                         </div>
                                         <div className="row field-group">
                                             <div className="col-md-3 field m-0">
                                                 <label htmlFor="form-anolancamento">Ano do lancamento</label>
-                                                <input required type="number" maxLength="4" minLength="4" name="anolancamento" id="form-anolancamento" onChange={handleInputChange} />
+                                                <input value={params.anolancamento} required type="number" maxLength="4" minLength="4" name="anolancamento" id="form-anolancamento" onChange={handleInputChange} />
                                             </div>
                                             <div className="col-md-3 field m-0">
                                                 <label htmlFor="form-numtemporadas">Temporadas</label>
-                                                <input required type="number" minLength="1" name="numtemporadas" id="form-numtemporadas" onChange={handleInputChange} />
+                                                <input value={params.numtemporadas} required type="number" minLength="1" name="numtemporadas" id="form-numtemporadas" onChange={handleInputChange} />
                                             </div>
                                             <div className="col-md-3 field m-0">
                                                 <label htmlFor="form-categoria">Categoria</label>
-                                                <input required type="text" maxLength="10" minLength="1" name="categoria" id="form-categoria" onChange={handleInputChange} />
+                                                <input value={params.categoria} required type="text" maxLength="10" minLength="1" name="categoria" id="form-categoria" onChange={handleInputChange} />
                                             </div>
                                             <div className="col-md-3 field m-0">
                                                 <label htmlFor="form-status">Status</label>
@@ -90,7 +92,7 @@ const NovaSerie = () => {
                                     </fieldset>
                                 </div>
                                 <div className="modal-footer">
-                                    <button type="submit">Adicionar</button>
+                                    <button type="submit">Atualizar</button>
                                 </div>
                             </form>
                         </div>
@@ -98,8 +100,8 @@ const NovaSerie = () => {
                 </div>
             </div>
 
-        </div>
+        </>
 
     )
 }
-export default NovaSerie;
+export default EditarSerie;
