@@ -1,12 +1,13 @@
 const knex = require('knex');
+require('dotenv/config');
 
 const connection = knex({
     client: 'mysql',
     connection: {
-        host: 'us-cdbr-east-03.cleardb.com',
-        user: 'bb3ed9ae9d95ec',
-        password: '695eee19',
-        database: 'heroku_6b813a9a5dace8a'
+        host: process.env.DB_HOST,
+        user: process.env.DB_USER,
+        password: process.env.DB_PASSWORD,
+        database: process.env.DB_NAME
     },
     useNullAsDefault: true,
 });
