@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import App from './App';
 
 localStorage.clear();
-localStorage.setItem('@server/link', 'http://localhost:3333');
+localStorage.setItem('@server/link', 'https://minhas-series-backend.herokuapp.com');
 
 ReactDOM.render(
   <React.StrictMode>
