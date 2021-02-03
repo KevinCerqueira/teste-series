@@ -33,12 +33,6 @@
 }
 .card-content {
   border-radius: 0.7rem !important;
-  background: rgb(87, 179, 189);
-  background: linear-gradient(
-    90deg,
-    rgba(87, 179, 189, 1) 5%,
-    rgba(255, 255, 255, 1) 5%
-  );
 }
 .servicos {
   font-size: 12px;

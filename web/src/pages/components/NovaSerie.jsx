@@ -30,7 +30,7 @@ const NovaSerie = () => {
         <div id="nova-serie">
             <div className="row">
                 <div className="col-md-2 p-0 m-0 float-right">
-                    <button id="btn-novaserie" type="button" className="btn" data-toggle="modal" data-target="#novaserieModal">
+                    <button id="btn-novaserie" type="button" className="btn border card-content" data-toggle="modal" data-target="#novaserieModal">
                         <strong>Adicionar Serie <i className="fas fa-plus-circle"></i></strong>
                     </button>
                 </div>
