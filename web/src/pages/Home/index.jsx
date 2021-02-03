@@ -11,13 +11,8 @@ const Home = () => {
     useEffect(() => {
         async function getSeries() {
             try {
-                // localStorage.removeItem('@data/update');
-                if ( localStorage.getItem('@data/update') === null || localStorage.getItem('@data/update') === true) {
-                    const { data } = await axios.get(localStorage.getItem('@server/link') + "/series/");
-                    setSeries(data);
-                    localStorage.setItem('@data/update', false);
-                }
-                console.log(localStorage.getItem('@data/update'));
+                const { data } = await axios.get(localStorage.getItem('@server/link') + "/series/");
+                setSeries(data);
             } catch (error) {
                 console.log(error);
             }
@@ -27,8 +22,10 @@ const Home = () => {
     useEffect(() => {
         async function getStatus() {
             try {
-                const { data } = await axios.get(localStorage.getItem('@server/link') + "/status");
-                setStatus(data);
+                if (status.length < 1) {
+                    const { data } = await axios.get(localStorage.getItem('@server/link') + "/status");
+                    setStatus(data);
+                }
             } catch (error) {
                 console.log(error);
             }

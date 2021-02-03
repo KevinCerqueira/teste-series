@@ -1,6 +1,7 @@
-import React, { useState, FormEvent, ChangeEvent } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
-import '../styles.css'
+import '../styles.css';
+
 const NovaSerie = () => {
     const [formData, setFormData] = useState({
         nomeserie: '',
@@ -17,18 +18,12 @@ const NovaSerie = () => {
     }
     async function handleSubmit(event) {
         event.preventDefault();
-        const { nomeserie, anolancamento, numtemporadas, sinopse, categoria, status } = formData;
-        const data = {
-            nomeserie,
-            anolancamento,
-            numtemporadas,
-            sinopse,
-            categoria,
-            status
-        };
-        const res = await axios.post(localStorage.getItem('@server/link') + "/series/create", data);
-        localStorage.removeItem('@data/series');
-        console.log(res);
+        try {
+            const res = await axios.post(localStorage.getItem('@server/link') + "/series/create", { ...formData });
+            console.log(res);
+        } catch (error) {
+            console.log(error);
+        }
         return window.location.reload();
     }
     return (

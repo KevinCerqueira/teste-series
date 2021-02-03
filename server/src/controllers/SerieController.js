@@ -63,8 +63,8 @@ class SerieController {
       categoria,
       status,
     };
-
-    const res = knex("serie").where("idserie", idserie).update(serie);
+    console.log(serie, idserie);
+    const res = await knex("serie").where("idserie", idserie).update(serie);
     return response.json(res);
   }
   async updateStatus(request, response) {
