@@ -18,7 +18,7 @@ const Home = () => {
             }
         }
         getSeries();
-    });
+    }, []);
     useEffect(() => {
         async function getStatus() {
             try {
@@ -31,7 +31,7 @@ const Home = () => {
             }
         }
         getStatus();
-    });
+    }, [status.length]);
 
     return (
         <div id="navbar">

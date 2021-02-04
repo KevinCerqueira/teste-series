@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { useHistory } from 'react-router';
 import '../styles.css';
 
 const NovaSerie = () => {
+    const history = useHistory();
+
     const [formData, setFormData] = useState({
         nomeserie: '',
         anolancamento: 0,
@@ -24,7 +27,7 @@ const NovaSerie = () => {
         } catch (error) {
             console.log(error);
         }
-        return window.location.reload();
+        return history.go(0);
     }
     return (
         <div id="nova-serie">

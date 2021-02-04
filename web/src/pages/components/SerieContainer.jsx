@@ -1,21 +1,26 @@
 import React from 'react';
 import axios from 'axios';
+import { useHistory } from 'react-router';
 import EditarSerie from './EditarSerie'
 import '../styles.css'
+
 const SerieContainer = (params) => {
     const { serie, status } = params;
+    const history = useHistory();
 
     async function updateStatus(event) {
         event.preventDefault();
         const idserie = event.target.children[0].value;
         const status = event.target.children[1].value;
         await axios.patch(localStorage.getItem('@server/link') + "/series/update-status", { idserie, status });
+        history.go(0);
     }
 
     async function deleteSerie(event) {
         event.preventDefault();
         const idserie = event.target.children[0].value;
         await axios.delete(localStorage.getItem('@server/link') + "/series/delete", { data: { idserie } });
+        history.go(0);
     }
 
     return (

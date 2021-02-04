@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { useHistory } from 'react-router';
 import '../styles.css';
 
 const EditarSerie = (params) => {
     const [formData, setFormData] = useState({...params});
+    const history = useHistory();
 
     function handleInputChange(event) {
         const { name, value } = event.target;
@@ -19,7 +21,7 @@ const EditarSerie = (params) => {
         } catch (error) {
             console.log(error);
         }
-        return window.location.reload();
+        return history.go(0);
     }
     
     return (
